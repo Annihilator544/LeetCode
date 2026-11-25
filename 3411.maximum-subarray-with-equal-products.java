@@ -1,0 +1,26 @@
+/*
+ * @lc app=leetcode id=3411 lang=java
+ *
+ * [3411] Maximum Subarray With Equal Products
+ */
+
+// @lc code=start
+class Solution {
+    public int maxLength(int[] nums) {
+        int best = 2, left = 0, product = 1;
+        for (int right = 0; right < nums.length; right++) {
+            int x = nums[right];
+            while (gcd(product, x) > 1)
+                product /= nums[left++];
+            product *= x;
+            best = Math.max(best, right - left + 1);
+        }
+        return best;
+    }
+
+    private int gcd(int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+}
+// @lc code=end
+
